@@ -5,8 +5,8 @@ A node.js application for managing media meta data and encapsulating access to t
 to play media, not caring whether it is stored on your local hard disk or in the cloud.
 
 The long term goal is to make this actually work for all kinds of media. My short term goal is driven by my
-particular use case which is "listening to music stored in mp3 files on my nas at home from within the HTML5
-browser at work".
+particular use case which is *listening to music stored in mp3 files on my nas at home from within the HTML5
+browser at work*.
 
 
 Status
@@ -45,8 +45,8 @@ library and in order to register physical media data locations with the library.
 
 The medialib service should be easily extensible in order to provide additional features in the future such as:
 
-* Server side cover art searching, maybe with Event-Channel into the Client over which events like "cover 
-found for album xyz, please show the user and let him approve or disapprove" can be send.
+* Server side cover art searching, maybe with Event-Channel into the Client over which events like *cover 
+found for album xyz, please show the user and let him approve or disapprove* can be send.
 * On the fly transcoding of media data.
 * Server side searching for concerts of artists you are interested in at locations near your.
 * Integration with last.fm or other services.
