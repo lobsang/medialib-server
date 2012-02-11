@@ -1,0 +1,18 @@
+#!/usr/bin/env node --debug=5858
+
+var fs = require( 'fs' ),
+	path = require( 'path' );
+	
+var medialib = require( path.join( __dirname, '../lib/medialib') );
+
+//process.on( 'uncaughtException', function ( err ) {
+//   console.error( err );
+//   console.trace();
+//} );
+
+// TODO: pass in path to configuration file as cli option
+var conf = JSON.parse( fs.readFileSync( path.join( __dirname, './medialib.json' ), 'utf8' ) );
+
+var mediaLibrary = new medialib.MediaLibrary( conf.mediaLibrary );
+var service = new medialib.MediaLibraryService( conf.webService, mediaLibrary );
+service.start();

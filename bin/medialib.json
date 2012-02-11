@@ -1,0 +1,14 @@
+{
+   "mediaLibrary": {
+    	"couch": {
+         "db": "medialib",
+     		"host": "localhost",
+    	   "port": 5984
+      }
+   },
+   "webService": {
+      "contextRoot" : "/medialib",
+      "listenPort": 3000
+   }
+
+}
