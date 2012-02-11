@@ -18,6 +18,8 @@ Status
 Architecture
 ------------
 
+### Requirements ###
+
 The architecture is a result of the following requirements:
 
 * Clean separation between player clients and the library which stores all the media meta data.
@@ -28,6 +30,7 @@ my local hard drive or within the cloud.
 code following the node.js paradigm.
 * Gather some experience with developing a modern web application.
 
+### Central Concepts ###
 
 ``Library``: The library which is responsible for storing media meta data. Right now it is using couchdb for
 storage. The storage mechanism should also remain pluggable (unless that turns out to be too academic a
@@ -43,6 +46,12 @@ as for streaming media.
 ``Client (Cataloguer)``: The cataloguer uses the medialib service in order to add media meta data to the
 library and in order to register physical media data locations with the library.  
 
+
+Refer to the [content types description](medialib-server/blob/master/content_types.md) for details on how I
+envision the service REST API. 
+
+### Future ###
+
 The medialib service should be easily extensible in order to provide additional features in the future such as:
 
 * Server side cover art searching, maybe with Event-Channel into the Client over which events like *cover 
@@ -50,9 +59,6 @@ found for album xyz, please show the user and let him approve or disapprove* can
 * On the fly transcoding of media data.
 * Server side searching for concerts of artists you are interested in at locations near your.
 * Integration with last.fm or other services.
-
-Refer to the [content types description](medialib-server/blob/master/content_types.md) for details on how I
-envision the service REST API. 
 
 
 Companion Projects
