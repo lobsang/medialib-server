@@ -57,6 +57,7 @@ enforced.
 ### Client creates Song ###
 
 Request:
+
     POST /songs/
     Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
     Content-Type: application/de.mlehmacher.medialib.Song+json
@@ -75,6 +76,7 @@ Request:
     }
 
 Response:
+
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Song+json
     {
@@ -102,9 +104,11 @@ application/de.mlehmacher.medialib.SongMerge+json
 --------------------------------------------
 
 Request (1):
+
     GET /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
 
 Response (1):
+
     HTTP/1.1 200 OK
     Content-Type: application/de.mlehmacher.medialib.SongMerge+json 
     Last-Modified: ${Last-Modified}
@@ -116,12 +120,14 @@ Response (1):
 
 
 Request (2):
+
     POST /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
     Content-Type: application/de.mlehmacher.medialib.SongMerge+json
     If-Unmodified-Since: ${Last-Modified}
     If-Match: ${ETag}
 
 Response (2):
+
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Song+json
     Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
@@ -171,6 +177,7 @@ application/de.mlehmacher.medialib.Artist+json
 ### Client creates Artist ###
 
 Request:
+
     POST /artists/
     Accept: application/de.mlehmacher.medialib.Artist+json, application/de.mlehmacher.medialib.Error+json
     Content-Type: application/de.mlehmacher.medialib.Artist+json
@@ -185,6 +192,7 @@ Request:
     }
 
 Response:
+
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Artist+json
     {
