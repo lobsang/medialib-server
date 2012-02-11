@@ -1,14 +1,17 @@
 In all examples, headers which are not pertinent to the example are omitted (mostly Content-Length).
 
+In order to improve readability I also did not enclose keys in json representations in quotation marks (which
+means that, strictly speaking, it's not json). The same applies to trailing commas.
+
 application/de.mlehmacher.medialib.Library+json
 --------------------------------------------
 
 ```
 {
    links: [
-      { rel: 'artists', url: 'http://domain/artists' },
-      { rel: 'songs', url: 'http://domain/songs' },
-      { rel: 'albums', url: 'http://domain/albums' },
+      { rel: "artists", url: "http://domain/artists" },
+      { rel: "songs", url: "http://domain/songs" },
+      { rel: "albums", url: "http://domain/albums" },
    ]
 }
 ```
@@ -21,8 +24,8 @@ A `song` represents an atomic, playable item of music within the media library.
 
 ```
 {
-   id: 'urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a',
-   clientId: '/path/to/Mastodon-Crack_The_Skye-2009-VAG/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3',
+   id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a",
+   clientId: "/path/to/Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",
    title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
    album: "Crack The Skye",
    artist: "Mastodon",
@@ -32,15 +35,15 @@ A `song` represents an atomic, playable item of music within the media library.
    size: 17729550,
    year: 2009,
    links: [
-      { rel: 'self', url: 'http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a' },
-      { rel: 'equal', url: 'http://domain/?song=2e0c202270906df6d8dba1db8a11e3b34aea87d1' },
-      { rel: 'mp3', url: 'file:///path/to/Mastodon-Crack_The_Skye-2009-VAG/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3' },
-      { rel: 'mp3', url: 'http://cloud/Mastodon/Crack_The_Skye/The_Czar.mp3' },
-      { rel: 'album', url: 'http://domain/albums?song=11528c41f7d5cd48aa9063e73bbdeee9530128ec' },
-      { rel: 'artist', url: 'http://domain/artists?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a' }
+      { rel: "self", url: "http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
+      { rel: "equal", url: "http://domain/?song=2e0c202270906df6d8dba1db8a11e3b34aea87d1" },
+      { rel: "mp3", url: "file:///path/to/Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" },
+      { rel: "mp3", url: "http://cloud/Mastodon/Crack_The_Skye/The_Czar.mp3" },
+      { rel: "album", url: "http://domain/albums?song=11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
+      { rel: "artist", url: "http://domain/artists?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" }
    ],
    actions: [   
-      { type: 'mergeEqual', url: 'http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1' }
+      { type: "mergeEqual", url: "http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
    ]
 }
 ```
@@ -58,7 +61,6 @@ Request:
 POST /songs/
  Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
  Content-Type: application/de.mlehmacher.medialib.Song+json
-
 {
    title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
    album: "Crack The Skye",
@@ -69,7 +71,7 @@ POST /songs/
    size: 17729550,
    year: 2009,
    links: [
-      { rel: 'mp3', url: 'file:///Mastodon-Crack_The_Skye-2009-VAG/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3' }
+      { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
    ],
 }
 ```
@@ -79,7 +81,7 @@ Response:
 HTTP/1.1 201 Created
  Content-Type: application/de.mlehmacher.medialib.Song+json
 {
-   id: 'urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a',
+   id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a",
    title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
    album: "Crack The Skye",
    artist: "Mastodon",
@@ -89,12 +91,12 @@ HTTP/1.1 201 Created
    size: 17729550,
    year: 2009,
    links: [
-      { rel: 'self', url: 'http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a' },
-      { rel: 'equal', url: 'http://domain/?song=2e0c202270906df6d8dba1db8a11e3b34aea87d1' },
-      { rel: 'mp3', url: 'file:///Mastodon-Crack_The_Skye-2009-VAG/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3' }
+      { rel: "self", url: "http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
+      { rel: "equal", url: "http://domain/?song=2e0c202270906df6d8dba1db8a11e3b34aea87d1" },
+      { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
    ],
    actions: [
-      { type: 'mergeEqual', url: 'http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1' }
+      { type: "mergeEqual", url: "http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
    ]
 }
 ```
@@ -103,18 +105,15 @@ HTTP/1.1 201 Created
 application/de.mlehmacher.medialib.SongMerge+json
 --------------------------------------------
 
-Request:
-```
+Request: ```
 GET /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
 ```
 
-Response:
-```
+Response: ```
 HTTP/1.1 200 OK
  Content-Type: application/de.mlehmacher.medialib.SongMerge+json
  Last-Modified: ${Last-Modified}
  ETag: ${ETag}
-
 {
    source: { id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a", ... },
    target: { id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc", ... }
@@ -135,7 +134,6 @@ HTTP/1.1 201 Created
  Content-Type: application/de.mlehmacher.medialib.Song+json
  Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
  Content-Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
-
 {
    id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc",
    ...
@@ -148,14 +146,13 @@ application/de.mlehmacher.medialib.Error+json
 
 ```
 {
-   op: 'SongCreation',
+   op: "SongCreation",
    causes: [
       {
-         type: 'constraintViolation',
-         text: "Uniqueness constraint violated for attribute 'clientId'" 
+         type: "constraintViolation",
+         text: "Uniqueness constraint violated for attribute "clientId"" 
       }
    ]
- 
 }
 ```
 
@@ -165,19 +162,18 @@ application/de.mlehmacher.medialib.Artist+json
 
 ```
 {
-   id: 'urn:artist:9a17fa4af00943939ce869b50d6e1fb3bc9e991a',
-   clientId: 'Mastodon',
+   id: "urn:artist:9a17fa4af00943939ce869b50d6e1fb3bc9e991a",
+   clientId: "Mastodon",
    name: "Mastodon"
    links: [
-      { rel: 'self', url: 'http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a' }
-      { rel: 'album', url: 'http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec' },
-      { rel: 'album', url: 'http://domain/?album=MastodonTheHunter2011' },
+      { rel: "self", url: "http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a" }
+      { rel: "album", url: "http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
+      { rel: "album", url: "http://domain/?album=MastodonTheHunter2011" },
    ],
    actions: [
-      { type: 'createSong', url: 'http://domain/artists/9a17fa4af00943939ce869b50d6e1fb3bc9e991a/createSong' },
-      { type: 'createAlbum', url: 'http://domain/artists/9a17fa4af00943939ce869b50d6e1fb3bc9e991a/createAlbum' }
+      { type: "createSong", url: "http://domain/artists/9a17fa4af00943939ce869b50d6e1fb3bc9e991a/createSong" },
+      { type: "createAlbum", url: "http://domain/artists/9a17fa4af00943939ce869b50d6e1fb3bc9e991a/createAlbum" }
    ]
-
 }
 ```
 
@@ -188,14 +184,13 @@ Request:
 POST /artists/
  Accept: application/de.mlehmacher.medialib.Artist+json, application/de.mlehmacher.medialib.Error+json
  Content-Type: application/de.mlehmacher.medialib.Artist+json
-
 {
-   clientId: 'Mastodon',
+   clientId: "Mastodon",
    name: "Mastodon"
    links: [
-      { rel: 'self', url: 'http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a' }
-      { rel: 'album', url: 'http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec' },
-      { rel: 'album', url: 'http://domain/?album=MastodonTheHunter2011' },
+      { rel: "self", url: "http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a" }
+      { rel: "album", url: "http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
+      { rel: "album", url: "http://domain/?album=MastodonTheHunter2011" },
    ],
 }
 ```
@@ -204,7 +199,6 @@ Response:
 ```
 HTTP/1.1 201 Created
  Content-Type: application/de.mlehmacher.medialib.Artist+json
-
 {
 }
 ```
@@ -215,26 +209,26 @@ application/de.mlehmacher.medialib.Album+json
 
 ```
 {
-   id: 'urn:album:11528c41f7d5cd48aa9063e73bbdeee9530128ec',
+   id: "urn:album:11528c41f7d5cd48aa9063e73bbdeee9530128ec",
    name: "Crack The Skye",
    links: [
-      { rel: 'self', url: 'http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec' },
-      { rel: 'artist', url: 'http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a' },
-      { rel: 'cover', url: 'http://domain/?cover=xxx' },
-      { rel: 'cover', url: 'http://domain/?cover=xxx' },
-      { rel: 'song', url: 'http://domain/?song=xxx' },
-      { rel: 'song', url: 'http://domain/?song=xxx' },
-      { rel: 'song', url: 'http://domain/?song=xxx' },
-      { rel: 'song', url: 'http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a' },
-      { rel: 'song', url: 'http://domain/?song=xxx' },
-      { rel: 'song', url: 'http://domain/?song=xxx' },
+      { rel: "self", url: "http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
+      { rel: "artist", url: "http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a" },
+      { rel: "cover", url: "http://domain/?cover=xxx" },
+      { rel: "cover", url: "http://domain/?cover=xxx" },
+      { rel: "song", url: "http://domain/?song=xxx" },
+      { rel: "song", url: "http://domain/?song=xxx" },
+      { rel: "song", url: "http://domain/?song=xxx" },
+      { rel: "song", url: "http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
+      { rel: "song", url: "http://domain/?song=xxx" },
+      { rel: "song", url: "http://domain/?song=xxx" },
    ],
 }
 ```
 
-* `links`: `rel: 'song'`: [1..*], one for each song of the album, ordered by `Song.track`
+* `links`: `rel: "song"`: [1..*], one for each song of the album, ordered by `Song.track`
 
-    `rel: 'artists'`: [1..*], one for each artist participating in songs of the album
+    `rel: "artists"`: [1..*], one for each artist participating in songs of the album
 
 
 application/de.mlehmacher.medialib.Cover+json
@@ -242,15 +236,15 @@ application/de.mlehmacher.medialib.Cover+json
 
 ```
 {
-   id: 'urn:cover:4447083ac3f5bf0ba0a5fc7e007e46f5227c41bc',
-   size: 'medium',
-   dataType: 'image/png;base64',
-   data: 'Djwx5GHITgM9GGgDx+HgT4M9GGgDx+HgT4M9OHjvwbov/71r4eBPuDHn',
-	status: 'waitingForApproval',
+   id: "urn:cover:4447083ac3f5bf0ba0a5fc7e007e46f5227c41bc",
+   size: "medium",
+   dataType: "image/png;base64",
+   data: "Djwx5GHITgM9GGgDx+HgT4M9GGgDx+HgT4M9OHjvwbov/71r4eBPuDHn",
+	status: "waitingForApproval",
    links: [
-      { rel: 'artist', url: 'http://domain/?artist=Mastodon' },
-      { rel: 'album', url: 'http://domain/?album=MastodonCrackTheSkye2010' },
-      { rel: 'originalSource', url: 'http://ecx.images-amazon.com/images/I/31aZ-uUbx3L._SL160_.jpg' }
+      { rel: "artist", url: "http://domain/?artist=Mastodon" },
+      { rel: "album", url: "http://domain/?album=MastodonCrackTheSkye2010" },
+      { rel: "originalSource", url: "http://ecx.images-amazon.com/images/I/31aZ-uUbx3L._SL160_.jpg" }
    ]
 }
 ```

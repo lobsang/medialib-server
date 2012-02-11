@@ -51,7 +51,8 @@ found for album xyz, please show the user and let him approve or disapprove* can
 * Server side searching for concerts of artists you are interested in at locations near your.
 * Integration with last.fm or other services.
 
-Refer to the [content types description](content_types.md) for details on how I envision the service REST API. 
+Refer to the [content types description](medialib-server/blob/master/content_types.md) for details on how I
+envision the service REST API. 
 
 
 Companion Projects
