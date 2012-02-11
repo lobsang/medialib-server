@@ -57,10 +57,10 @@ enforced.
 ### Client creates Song ###
 
 Request:
-
     POST /songs/
     Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
     Content-Type: application/de.mlehmacher.medialib.Song+json
+    
     {
        title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
        album: "Crack The Skye",
@@ -74,32 +74,30 @@ Request:
           { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
        ],
     }
-```
 
 Response:
-```
-HTTP/1.1 201 Created
- Content-Type: application/de.mlehmacher.medialib.Song+json
-{
-   id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a",
-   title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
-   album: "Crack The Skye",
-   artist: "Mastodon",
-   track: 4,
-   genre: "Progressive Rock",
-   length: 654.3412244897959,
-   size: 17729550,
-   year: 2009,
-   links: [
-      { rel: "self", url: "http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
-      { rel: "equal", url: "http://domain/?song=2e0c202270906df6d8dba1db8a11e3b34aea87d1" },
-      { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
-   ],
-   actions: [
-      { type: "mergeEqual", url: "http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
-   ]
-}
-```
+    HTTP/1.1 201 Created
+    Content-Type: application/de.mlehmacher.medialib.Song+json
+    
+    {
+       id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a",
+       title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
+       album: "Crack The Skye",
+       artist: "Mastodon",
+       track: 4,
+       genre: "Progressive Rock",
+       length: 654.3412244897959,
+       size: 17729550,
+       year: 2009,
+       links: [
+          { rel: "self", url: "http://domain/?song=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
+          { rel: "equal", url: "http://domain/?song=2e0c202270906df6d8dba1db8a11e3b34aea87d1" },
+          { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
+       ],
+       actions: [
+          { type: "mergeEqual", url: "http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
+       ]
+    }
 
 
 application/de.mlehmacher.medialib.SongMerge+json
@@ -109,36 +107,34 @@ Request: ```
 GET /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
 ```
 
-Response: ```
-HTTP/1.1 200 OK
- Content-Type: application/de.mlehmacher.medialib.SongMerge+json
- Last-Modified: ${Last-Modified}
- ETag: ${ETag}
-{
-   source: { id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a", ... },
-   target: { id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc", ... }
-}
-```
+Response:
+    HTTP/1.1 200 OK
+    Content-Type: application/de.mlehmacher.medialib.SongMerge+json 
+    Last-Modified: ${Last-Modified}
+    ETag: ${ETag}
+    
+    {
+       source: { id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a", ... },
+       target: { id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc", ... }
+    }
+
 
 Request:
-```
-POST /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
- Content-Type: application/de.mlehmacher.medialib.SongMerge+json
- If-Unmodified-Since: ${Last-Modified}
- If-Match: ${ETag}
-```
+    POST /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
+    Content-Type: application/de.mlehmacher.medialib.SongMerge+json
+    If-Unmodified-Since: ${Last-Modified}
+    If-Match: ${ETag}
 
 Response:
-```
-HTTP/1.1 201 Created
- Content-Type: application/de.mlehmacher.medialib.Song+json
- Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
- Content-Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
-{
-   id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc",
-   ...
-}
-```
+    HTTP/1.1 201 Created
+    Content-Type: application/de.mlehmacher.medialib.Song+json
+    Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
+    Content-Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
+    
+    {
+       id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc",
+       ...
+    }
 
 
 application/de.mlehmacher.medialib.Error+json
@@ -180,28 +176,26 @@ application/de.mlehmacher.medialib.Artist+json
 ### Client creates Artist ###
 
 Request:
-```
-POST /artists/
- Accept: application/de.mlehmacher.medialib.Artist+json, application/de.mlehmacher.medialib.Error+json
- Content-Type: application/de.mlehmacher.medialib.Artist+json
-{
-   clientId: "Mastodon",
-   name: "Mastodon"
-   links: [
-      { rel: "self", url: "http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a" }
-      { rel: "album", url: "http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
-      { rel: "album", url: "http://domain/?album=MastodonTheHunter2011" },
-   ],
-}
-```
+    POST /artists/
+    Accept: application/de.mlehmacher.medialib.Artist+json, application/de.mlehmacher.medialib.Error+json
+    Content-Type: application/de.mlehmacher.medialib.Artist+json
+    
+    {
+       clientId: "Mastodon",
+       name: "Mastodon"
+       links: [
+          { rel: "self", url: "http://domain/?artist=9a17fa4af00943939ce869b50d6e1fb3bc9e991a" }
+          { rel: "album", url: "http://domain/?album=11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
+          { rel: "album", url: "http://domain/?album=MastodonTheHunter2011" },
+       ],
+    }
 
 Response:
-```
-HTTP/1.1 201 Created
- Content-Type: application/de.mlehmacher.medialib.Artist+json
-{
-}
-```
+    HTTP/1.1 201 Created
+    Content-Type: application/de.mlehmacher.medialib.Artist+json
+    
+    {
+    }
 
 
 application/de.mlehmacher.medialib.Album+json
