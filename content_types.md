@@ -60,7 +60,6 @@ Request:
     POST /songs/
     Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
     Content-Type: application/de.mlehmacher.medialib.Song+json
-    
     {
        title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
        album: "Crack The Skye",
@@ -78,7 +77,6 @@ Request:
 Response:
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Song+json
-    
     {
        id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a",
        title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
@@ -103,34 +101,31 @@ Response:
 application/de.mlehmacher.medialib.SongMerge+json
 --------------------------------------------
 
-Request: ```
-GET /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
-```
+Request (1):
+    GET /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
 
-Response:
+Response (1):
     HTTP/1.1 200 OK
     Content-Type: application/de.mlehmacher.medialib.SongMerge+json 
     Last-Modified: ${Last-Modified}
     ETag: ${ETag}
-    
     {
        source: { id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a", ... },
        target: { id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc", ... }
     }
 
 
-Request:
+Request (2):
     POST /songs/merge?src=urn%3Asong%3Aa0a5fc7e007e46f5227c41bc4447083ac3f5bf0a&target=urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
     Content-Type: application/de.mlehmacher.medialib.SongMerge+json
     If-Unmodified-Since: ${Last-Modified}
     If-Match: ${ETag}
 
-Response:
+Response (2):
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Song+json
     Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
     Content-Location: /songs/urn%3Asong%3A4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc
-    
     {
        id: "urn:song:4447083ac3f5bf0a3Aa0a5fc7e007e46f5227c41bc",
        ...
@@ -179,7 +174,6 @@ Request:
     POST /artists/
     Accept: application/de.mlehmacher.medialib.Artist+json, application/de.mlehmacher.medialib.Error+json
     Content-Type: application/de.mlehmacher.medialib.Artist+json
-    
     {
        clientId: "Mastodon",
        name: "Mastodon"
@@ -193,7 +187,6 @@ Request:
 Response:
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Artist+json
-    
     {
     }
 
