@@ -12,13 +12,14 @@ browser at work".
 Status
 ------
 
-*February 2012: Initial project. Not sensibly usable for anyone but me (in the current state not even for me).
+* February 2012: Initial project. Not sensibly usable for anyone but me (in the current state not even for me).
 
 
 Architecture
 ------------
 
 The architecture is a result of the following requirements:
+
 * Clean separation between player clients and the library which stores all the media meta data.
 * The player client must be agnostic of physical location of media. It does not matter if media is stored on
 my local hard drive or within the cloud.
@@ -43,10 +44,14 @@ as for streaming media.
 library and in order to register physical media data locations with the library.  
 
 The medialib service should be easily extensible in order to provide additional features in the future such as:
+
 * Server side cover art searching, maybe with Event-Channel into the Client over which events like "cover 
 found for album xyz, please show the user and let him approve or disapprove" can be send.
 * On the fly transcoding of media data.
+* Server side searching for concerts of artists you are interested in at locations near your.
 * Integration with last.fm or other services.
+
+Refer to the [content types description](content_types.md) for details on how I envision the service REST API. 
 
 
 Companion Projects
@@ -66,4 +71,5 @@ Requirements
 Utilities
 ---------
 Also contains the following helpers, which may or may not be pulled out into separate modules in the future:
+
 * ``assert``: assertions for basic coding by contract

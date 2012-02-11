@@ -13,7 +13,7 @@
       "jasmine-node": "1.0.20"
    },
    "keywords": ["media", "library", "web", "service", "music", "rest", "restful"],
-   "repository": "git://github.com/mark.lehmacher/medialib",
+   "repository": "git://github.com/lobsang/medialib-server.git",
    "main": "index",
    "bin": { "medialib": "./bin/medialib" },
    "engines": { "node": ">= 0.6.1 < 0.7.0" }
