@@ -57,23 +57,23 @@ enforced.
 ### Client creates Song ###
 
 Request:
-```
-POST /songs/
- Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
- Content-Type: application/de.mlehmacher.medialib.Song+json
-{
-   title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
-   album: "Crack The Skye",
-   artist: "Mastodon",
-   track: 4,
-   genre: "Progressive Rock",
-   length: 654.3412244897959,
-   size: 17729550,
-   year: 2009,
-   links: [
-      { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
-   ],
-}
+
+    POST /songs/
+    Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
+    Content-Type: application/de.mlehmacher.medialib.Song+json
+    {
+       title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
+       album: "Crack The Skye",
+       artist: "Mastodon",
+       track: 4,
+       genre: "Progressive Rock",
+       length: 654.3412244897959,
+       size: 17729550,
+       year: 2009,
+       links: [
+          { rel: "mp3", url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3" }
+       ],
+    }
 ```
 
 Response:
