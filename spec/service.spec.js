@@ -1,6 +1,7 @@
 var medialib = require( '../lib/medialib' );
 var wwwdude = require( 'wwwdude' );
 var util = require( 'util' );
+var fs = require( 'fs' );
 
 var conf = {
    "mediaLibrary": {
@@ -16,22 +17,29 @@ var conf = {
    }
 };
 
+var httpClient = wwwdude.createClient( {
+   headers: { 'User-Agent': 'medialib test client' },
+   timeout: 500
+} );
+
+var fixture = {
+   songs: JSON.parse( fs.readFileSync( __filename.replace( /js$/, 'songs.json' ), 'utf8' ) ).songs
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 describe( 'medialib service', function() {
 
+   var mediaLibrary = null;
    var service = null;
-   var client = null;
    var baseURL = null;
    
    beforeEach( function () {
       if( !service ) {
          
-         var mediaLibrary = new medialib.MediaLibrary( conf.mediaLibrary );
+         mediaLibrary = new medialib.MediaLibrary( conf.mediaLibrary );
          service = new medialib.MediaLibraryService( conf.webService, mediaLibrary );
-         
-         client = wwwdude.createClient( {
-            timeout: 500
-         } );
-         
+                  
          baseURL = util.format( "http://localhost:%d%s", conf.webService.listenPort, conf.webService.contextRoot );
 
       }
@@ -44,9 +52,9 @@ describe( 'medialib service', function() {
          
          expect( err ).toBeFalsy();
          
-         client.get( baseURL ).on( 'complete', function ( data, resp ) {
+         httpClient.get( baseURL ).on( 'complete', function ( data, response ) {
 
-            expect( resp.statusCode ).toEqual( 200 );
+            expect( response.statusCode ).toBe( 200 );
             
             done();
          } );
@@ -56,19 +64,57 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
+   it( 'rejects song creations without content type', function( done ) {
+
+      var request = {
+         payload: JSON.stringify( fixture.songs[ 0 ] ),
+         headers: {}
+      };
+      
+      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 415 );
+            
+         done();
+      } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'creates a song', function( done ) {
+
+      var request = {
+         payload: JSON.stringify( fixture.songs[ 0 ] ),
+         headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
+      };
+      
+      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 201 );
+            
+         done();
+      } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
    it( 'stops listening when stopped', function( done ) {
+      
+      var spec = this;
       service.stop( function( err ) {
          
          expect( err ).toBeFalsy();
          
-         client.get( baseURL ).
+         httpClient.get( baseURL ).
             on( 'error', function( err ) {
                expect( err.errno ).toEqual( 'ECONNREFUSED' );
                
                done();
             } ).
-            on( 'complete', function ( data, resp ) {
-               this.fail( 'Service still responding.' );
+            on( 'complete', function ( data, response ) {
+               spec.fail( 'Service still responding.' );
                done();
             } );
          
