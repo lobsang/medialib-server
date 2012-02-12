@@ -18,11 +18,11 @@ describe( 'Assert', function() {
       expect( Assert.that( {} ).isNotNull() ).toBeTruthy();
    } );  
    
-   // isNotUndefined
+   // isDefined/isNotUndefined
    
    it( 'throws error if undefined is required to be not undefined', function() {
       expect( function() {
-         Assert.that( undefined ).isNotUndefined();
+         Assert.that( undefined ).isDefined();
       } ).toThrow( 'Assertion failed with cause: object is undefined' );
    } );
 
@@ -109,7 +109,7 @@ describe( 'Assert', function() {
    // Chaining
    
    it( 'can be chained', function() {
-      expect( Assert.that( {} ).isNotUndefined().isNotNull() ).toBeTruthy();
+      expect( Assert.that( {} ).isDefined().isNotNull() ).toBeTruthy();
    } );
 
 

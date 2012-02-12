@@ -4,13 +4,14 @@
    "version": "0.0.1",
    "author": "Mark Lehmacher <Mark.Lehmacher+medialib@gmail.com>",
    "dependencies": {
-      "aync": "0.1.15",
+      "async": "0.1.15",
       "aws-lib": "0.0.5",
       "express": "2.5.6",
       "felix-couchdb": "1.0.3"
    },
    "devDependencies": {
-      "jasmine-node": "1.0.20"
+      "jasmine-node": "1.0.20",
+      "wwwdude": "0.1.0"
    },
    "keywords": ["media", "library", "web", "service", "music", "rest", "restful"],
    "repository": "git://github.com/lobsang/medialib-server.git",
