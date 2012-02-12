@@ -1,0 +1,16 @@
+object {
+   string title;
+   string album;
+   string artist;
+   any clientId?;
+   string date;
+   string genre;
+   string id?;
+   array { object {
+      string rel;
+      string url;
+   } } links;
+   integer track;
+   number length;
+   integer size;
+};

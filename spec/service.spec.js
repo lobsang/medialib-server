@@ -82,6 +82,49 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
+   it( 'rejects song with additional properties', function( done ) {
+
+      var song = JSON.parse( JSON.stringify( fixture.songs[ 0 ] ) );
+      song.myProperty = "value";
+      
+      var request = {
+         payload: JSON.stringify( song ),
+         headers: {}
+      };
+      
+      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 415 );
+            
+         done();
+      } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'rejects song with missing properties', function( done ) {
+
+      var song = JSON.parse( JSON.stringify( fixture.songs[ 0 ] ) );
+      delete( song.title );
+      
+      var request = {
+         payload: JSON.stringify( song ),
+         headers: {}
+      };
+      
+      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 415 );
+            
+         done();
+      } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   var songId = null;
    it( 'creates a song', function( done ) {
 
       var request = {
@@ -92,6 +135,24 @@ describe( 'medialib service', function() {
       httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
+         songId =  JSON.parse( data ).id;
+            
+         done();
+      } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'finds a song by id', function( done ) {
+
+      var request = {
+         headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
+      };
+
+      httpClient.get( baseURL + '/0/songs/' + songId, request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 200 );
             
          done();
       } );
