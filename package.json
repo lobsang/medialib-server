@@ -7,7 +7,7 @@
       "async": "0.1.15",
       "aws-lib": "0.0.5",
       "express": "2.5.6",
-      "felix-couchdb": "1.0.3"
+      "cradle": "0.5.8"
    },
    "devDependencies": {
       "jasmine-node": "1.0.20",

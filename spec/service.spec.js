@@ -2,9 +2,6 @@ var medialib = require( '../lib/medialib' );
 var wwwdude = require( 'wwwdude' );
 var util = require( 'util' );
 
-console.log(   
-jasmine.DEFAULT_TIMEOUT_INTERVAL );
-
 var conf = {
    "mediaLibrary": {
       "couch": {
@@ -44,12 +41,11 @@ describe( 'medialib service', function() {
 
    it( 'starts listening when started', function( done ) {
       service.start( function( err ) {
-         console.log( "a" );
+         
          expect( err ).toBeFalsy();
          
-         client.get( baseURL ).on( 'complete', function ( err, data, resp ) {
-            console.log( "b" );
-            expect( err ).toBeFalsy();
+         client.get( baseURL ).on( 'complete', function ( data, resp ) {
+
             expect( resp.statusCode ).toEqual( 200 );
             
             done();
@@ -57,4 +53,26 @@ describe( 'medialib service', function() {
          
       } );
    } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'stops listening when stopped', function( done ) {
+      service.stop( function( err ) {
+         
+         expect( err ).toBeFalsy();
+         
+         client.get( baseURL ).
+            on( 'error', function( err ) {
+               expect( err.errno ).toEqual( 'ECONNREFUSED' );
+               
+               done();
+            } ).
+            on( 'complete', function ( data, resp ) {
+               this.fail( 'Service still responding.' );
+               done();
+            } );
+         
+      } );
+   } );
+   
 } );

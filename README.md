@@ -26,7 +26,7 @@ The architecture is a result of the following requirements:
 * The player client must be agnostic of physical location of media. It does not matter if media is stored on
 my local hard drive or within the cloud.
 * Gather some experience with RESTful API design.
-* Gather some experience with server side JavaScript, in particular with respect asynchronous
+* Gather some experience with server side JavaScript, in particular with respect to writing asynchronous
 code following the node.js paradigm.
 * Gather some experience with developing a modern web application.
 
