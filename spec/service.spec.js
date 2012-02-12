@@ -124,7 +124,7 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   var songId = null;
+   var song = null;
    it( 'creates a song', function( done ) {
 
       var request = {
@@ -135,7 +135,7 @@ describe( 'medialib service', function() {
       httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
-         songId =  JSON.parse( data ).id;
+         song = JSON.parse( data );
             
          done();
       } );
@@ -150,7 +150,17 @@ describe( 'medialib service', function() {
          headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
       };
 
-      httpClient.get( baseURL + '/0/songs/' + songId, request ).on( 'complete', function ( data, response ) {
+      var url = null;
+      song.links.forEach( function( link ) {
+         if( link.rel === 'self' ) {
+            url = link.url;
+            return;
+         }
+      } );
+      
+      expect( url ).toBeTruthy();
+
+      httpClient.get( url, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 200 );
             

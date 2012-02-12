@@ -5,7 +5,6 @@ object {
    any clientId?;
    string date;
    string genre;
-   string id?;
    array { object {
       string rel;
       string url;
