@@ -144,7 +144,37 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   it( 'finds a song by id', function( done ) {
+   it( 'returns a song representation, containing a self link', function() {
+
+      var url = null;
+      song.links.forEach( function( link ) {
+         if( link.rel === 'self' ) {
+            url = link.url;
+            return;
+         }
+      } );
+      
+      expect( url ).toBeTruthy();
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'returns a song representation, containing an artist link', function() {
+
+      var url = null;
+      song.links.forEach( function( link ) {
+         if( link.rel === 'artist' ) {
+            url = link.url;
+            return;
+         }
+      } );
+      
+      expect( url ).toBeTruthy();
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'returns a song from self link', function( done ) {
 
       var request = {
          headers: { 'Content-Type': mediaLibrary.contentTypes.Song }

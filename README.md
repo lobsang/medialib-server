@@ -66,7 +66,7 @@ Companion Projects
 
 This project only contains the medialib server components, that is, the Library and the Service. The clients
 are contained in separate projects, which I will publish on github soon. Right now I am working on a browser
-player client (HTML5) and a scanning client for your local music. 
+player client (HTML5) and a scanning client for my local music. 
 
 
 Requirements

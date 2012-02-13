@@ -3,6 +3,10 @@ In all examples, headers which are not pertinent to the example are omitted (mos
 In order to improve readability I also did not enclose keys in json representations in quotation marks (which
 means that, strictly speaking, it's not json). The same applies to trailing commas.
 
+Usually I'd say the various entities do not need an id (after all they are identified by an url and related 
+to each other by links). However, the links are specific to the web service, which means we have to find a way
+of expressing relationship semantics within the library itself.
+
 application/de.mlehmacher.medialib.Library+json
 --------------------------------------------
 
