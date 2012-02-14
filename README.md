@@ -4,7 +4,7 @@ Media Library
 A node.js application for managing media meta data and encapsulating access to the media stream for clients
 to play media, not caring whether it is stored on your local hard disk or in the cloud.
 
-The long term goal is to make this actually work for all kinds of media. My short term goal is driven by my
+The long term goal is to actually make this work for all kinds of media. My short term goal is driven by my
 particular use case which is *listening to music stored in mp3 files on my nas at home from within the HTML5
 browser at work*.
 

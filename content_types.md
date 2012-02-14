@@ -24,7 +24,7 @@ application/de.mlehmacher.medialib.Library+json
 application/de.mlehmacher.medialib.Song+json
 --------------------------------------------
 
-A `song` represents a collection of meta data for one atomic item of music within the media library.
+A _song_ represents a collection of meta data for one atomic item of music within the media library.
 
 ```
 {
@@ -46,7 +46,8 @@ A `song` represents a collection of meta data for one atomic item of music withi
       { rel: "artist", url: "http://domain/artists/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" }
    ],
    actions: [   
-      { type: "mergeEqualIntoSelf", url: "http://domain/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/merge?source=2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
+       { effect: "createMediaResource", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources" },
+       { effect: "mergeEqualSongsIntoSelf", url: "http://domain/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/merge?source=2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
    ]
 }
 ```
@@ -54,15 +55,13 @@ A `song` represents a collection of meta data for one atomic item of music withi
 * `clientId`: An optional unique id (with respect to all other songs) supplied by the client. Uniqueness is
 enforced by the server. Apart from that, its value is neither used nor interpreted by the server.
 
-[V 1.1]: album, track -> appearsOn: [ {album, track } ]
-         genre -> genres
-         artist -> artists
+_[V 1.1]: album, track -> appearsOn: [ {album, track } ]; genre -> genres; artist -> artists_
 
 
 application/de.mlehmacher.medialib.MediaResource+json
 --------------------------------------------
 
-A `media resource` describes a physical, streamable media resource (doh!). The mp3 file on your local hard
+A _media resource_ describes a physical, streamable media resource (doh!). The mp3 file on your local hard
 disk is the media resource from which the song meta data is derived. The same song may have additional
 physical reifications within a cloud or elsewhere (anywhere addressable).
 
@@ -75,21 +74,21 @@ physical reifications within a cloud or elsewhere (anywhere addressable).
 
 Creating a media resources causes the following side effect to the representation of its owning song:
 
-* Playback link will be added ({rel: "play/mp3", url: "..."})
+* Playback link will be added: `{rel: "play/mp3", url: "..."}`
 
 
 ### Client creates Song ###
 
 Request:
 
-    POST /songs/
+    POST /songs
     Accept: application/de.mlehmacher.medialib.Song+json, application/de.mlehmacher.medialib.Error+json
     Content-Type: application/de.mlehmacher.medialib.Song+json
     {
        title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
-       appearsOn: [ {album: "Crack The Skye" track: 4 } ],
-       artist: "Mastodon",
+       album: "Crack The Skye",
        track: 4,
+       artist: "Mastodon",
        genre: "Progressive Rock",
        length: 654.3412244897959,
        size: 17729550,
@@ -101,7 +100,6 @@ Response:
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.Song+json
     {
-       id: "urn:song:a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a",
        title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
        album: "Crack The Skye",
        artist: "Mastodon",
@@ -117,7 +115,7 @@ Response:
        ],
        actions: [
           { effect: "createMediaResource", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources" },
-          { effect: "mergeEqual", url: "http://domain/mergeSongs?songs=a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a,2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
+          { effect: "mergeEqualSongsIntoSelf", url: "http://domain/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/merge?source=2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
        ]
     }
     
