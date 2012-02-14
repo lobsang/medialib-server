@@ -127,7 +127,7 @@ Request:
     Accept: application/de.mlehmacher.medialib.MediaResource+json
     Content-Type: application/de.mlehmacher.medialib.MediaResource+json
     {
-	    mediaType: "mp3",
+       mediaType: "mp3",
        url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3"
     }
 
@@ -136,7 +136,7 @@ Response:
     HTTP/1.1 201 Created
     Content-Type: application/de.mlehmacher.medialib.MediaResource+json
     {
-	    mediaType: "mp3",
+       mediaType: "mp3",
        url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",
        
        links: [
