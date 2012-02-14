@@ -21,7 +21,7 @@ application/medialib.Library+json
 ```
 
 
-application/medialib.Song+json [Song.orderly](medialib-server/blob/master/lib/medialib/validation/song.orderly)
+application/medialib.Song+json [Song.orderly](lib/medialib/validation/song.orderly)
 --------------------------------------------
 
 A _song_ represents a collection of meta data for one atomic item of music within the media library.
