@@ -2,6 +2,7 @@ var medialib = require( '../lib/medialib' );
 var wwwdude = require( 'wwwdude' );
 var util = require( 'util' );
 var fs = require( 'fs' );
+var Enumerable = require( '../lib/vendor/linq.js/linq.js' ).Enumerable;
 
 var conf = {
    "mediaLibrary": {
@@ -146,13 +147,46 @@ describe( 'medialib service', function() {
    
    it( 'returns a song representation, containing a self link', function() {
 
-      var url = null;
-      song.links.forEach( function( link ) {
-         if( link.rel === 'self' ) {
-            url = link.url;
-            return;
-         }
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'self'" )
+         .Select( "$.url" )
+         .First();
+      
+      expect( url ).toBeTruthy();
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'responds with media data when querying a media link', function( done ) {
+
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'media'" )
+         .Select( "$.url" )
+         .First();
+      
+      expect( url ).toBeTruthy();
+
+      var request = {
+      };
+      
+      httpClient.get( url, request ).on( 'complete', function ( data, response ) {
+
+         // TODO: Make file to be delivered part of fixture (somehow) and test for 200
+         expect( response.statusCode ).toBe( 404 );
+            
+         done();
       } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'returns a song representation, containing a media playback link', function() {
+
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'media'" )
+         .Select( "$.url" )
+         .First();
       
       expect( url ).toBeTruthy();
    } );
@@ -161,32 +195,26 @@ describe( 'medialib service', function() {
    
    it( 'returns a song representation, containing an artist link', function() {
 
-      var url = null;
-      song.links.forEach( function( link ) {
-         if( link.rel === 'artist' ) {
-            url = link.url;
-            return;
-         }
-      } );
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'artist'" )
+         .Select( "$.url" )
+         .First();
       
       expect( url ).toBeTruthy();
    } );
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   it( 'returns a song from self link', function( done ) {
+   it( 'responds with song representation when querying song self link', function( done ) {
 
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'self'" )
+         .Select( "$.url" )
+         .First();
+      
       var request = {
          headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
       };
-
-      var url = null;
-      song.links.forEach( function( link ) {
-         if( link.rel === 'self' ) {
-            url = link.url;
-            return;
-         }
-      } );
       
       expect( url ).toBeTruthy();
 

@@ -4,6 +4,7 @@
    "version": "0.0.1",
    "author": "Mark Lehmacher <Mark.Lehmacher+medialib@gmail.com>",
    "dependencies": {
+      "addressable": "0.3.3",
       "async": "0.1.15",
       "aws-lib": "0.0.5",
       "express": "2.5.6",
