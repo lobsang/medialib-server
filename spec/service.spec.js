@@ -66,9 +66,9 @@ describe( 'medialib service', function() {
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
    it( 'rejects song creations without content type', function( done ) {
-
+      var song = JSON.parse( JSON.stringify( fixture.songs[ 0 ] ) );
       var request = {
-         payload: JSON.stringify( fixture.songs[ 0 ] ),
+         payload: JSON.stringify( song ),
          headers: {}
       };
       

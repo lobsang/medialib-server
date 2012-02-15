@@ -80,7 +80,7 @@ Creating a media resources causes the following side effect to the representatio
 
 * Streaming link will be added: `{rel: "stream", contentType: "...", url: "..."}`
 
-_[V 1.1]: Transcoding: { rel: "stream", contentType: "application/ogg", url://.../stream?transcode=vorbis }_
+_[V 1.1]: Transcoding: { rel: "stream", contentType: "application/ogg", url: ".../stream?transcode=vorbis" }_
 
 ### Client creates Song ###
 
