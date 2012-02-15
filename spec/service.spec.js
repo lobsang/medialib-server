@@ -136,6 +136,7 @@ describe( 'medialib service', function() {
       httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
+         console.log( data );
          song = JSON.parse( data );
             
          done();
