@@ -50,13 +50,20 @@ describe( 'medialib service', function() {
 
    it( 'starts listening when started', function( done ) {
       service.start( function( err ) {
+
+         var request = {
+            headers: { 'Content-Type': mediaLibrary.contentTypes.Library }
+         };
          
          expect( err ).toBeFalsy();
          
-         httpClient.get( baseURL ).on( 'complete', function ( data, response ) {
+         httpClient.get( baseURL, request ).on( 'complete', function ( data, response ) {
+            
+            if( response.statusCode === 302 ) {
+               return;
+            }
 
             expect( response.statusCode ).toBe( 200 );
-            
             done();
          } );
          
@@ -136,7 +143,6 @@ describe( 'medialib service', function() {
       httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
-         console.log( data );
          song = JSON.parse( data );
             
          done();

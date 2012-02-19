@@ -111,6 +111,12 @@ describe( 'Assert', function() {
    it( 'can be chained', function() {
       expect( Assert.that( {} ).isDefined().isNotNull() ).toBeTruthy();
    } );
-
+   
+   // Multiple testees
+   it( 'throws error if several testees, one which false, are required to be truthy', function() {
+      expect( function() {
+         Assert.that( true, undefined ).isTruthy();
+      } ).toThrow( "Assertion failed with cause: [argument at index 1]: object 'undefined' is not truthy" );
+   } );
 
 } );
