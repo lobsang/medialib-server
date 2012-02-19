@@ -1,32 +1,22 @@
-Use Cases
-=========
-
-Scanning Client
----------------
-
-Client scans user music files. Client sends each song to server with the intention of creating a song resource 
-on the server.
-           
-Server stores songs. Server also creates corresponding album and artist resources on the fly or updates 
-existing resources with new song. Server responds to client request with song representation which contains 
-links to all participating artists and all albums it is part of.
-
-Abstract: The server builds a relationship graph involving songs, artists and albums by intelligently creating 
-resources and inferring relationships. 
-
 Architecture & Design
 ======================
 
-The original idea was to have a programmatic media library interface independent of the web service sitting
-on top. However, sensible as that objective might seem, I actively decided against it for now, because it only
-leads to indirections between HTTP specific concepts (HTTP headers, Content Types, etc.) and media library
-concepts.
+The idea is to have a programmatic media library interface independent of the web service sitting on top.
+This can understood in two ways:
 
-As it stands I already have responses as a concept of the media library domain which contains a subset of 
-properties characterizing a HTTP response. The design of the media library api is driven by the RESTful
-service on top anyways (what with the REST verbs translating into create/show/index/etc. actions within
-the media library domain), so in order to harness the full power of the HTTP/REST stack I might as well ease 
-up on my early restrictions.
+* First to decouple the media library from HTTP specific concepts, which 
+would only lead to an indirection between HTTP specific concepts (like HTTP headers) and media library
+concepts. To my mind there is really not much value to that objective, which is why I am not going to go out
+my way to avoid using HTTP specific concepts in my media library.
+
+* Second to decouple the media library implementation from the particular web server implementation chosen
+in my node.js stack (currently express.js). This to my mind, is still a worthwhile objective and as such a
+factor to consider. 
+
+However, with that being said, the design of the media library api is driven by the RESTful service on top 
+of it anyways (what with the REST verbs translating into create/show/index/etc. actions within
+the media library domain). It remains to be seen in how far decoupling between the potential area of conflict
+__HTTP <--> REST <--> Media Library__ makes sense.
 
 What does REST bring to the table?
 ----------------------------------
@@ -48,7 +38,6 @@ Moreover the following principles lead the decision making about particular api 
 
 * _Avoid rpc_: 
 
-
 Representations, entities and resources
 ----------------------------------------
 A song is a bunch of meta data for a playable item of music. This bunch of meta data gains its resource 
@@ -56,11 +45,11 @@ semantics simply by virtue of having its own unique identity and being somehow a
 susceptible to inspection and manipulation by interested clients.
 
 Then we have the canonical representation of a song. This is a JavaScript object which is used in code 
-to carry the bunch of meta data around. From that canonical representation, one representation 
+to carry the bunch of music item meta data around. From that canonical representation, one representation 
 (serialization, really) for each supported data format can be derived.
 
-As such, this part of the code only cares for the application/Song part of the application/Song+json 
-content type.
+As such, the media library implementation really only cares about the application/Song part of the
+application/Song+json content type.
 
 Within this layer there is also the song entity, a container for a song, which contains the song value 
 itself and also provides the identity for the song. It also contains relationships to other entities.
@@ -73,3 +62,22 @@ The transformation basically goes like this: _song -> entity(entityData, song) -
 In words: Client puts song, Library wraps it in a song entity, thus endowing the representation received
 from the client with it's own identity. Enriches the song with links of related resources. Sends a
 serialization of that back to the client.
+
+
+Use Cases
+=========
+
+Scanning Client
+---------------
+
+Client scans user music files. Client sends each song to server with the intention of creating a song resource 
+on the server.
+           
+Server stores songs. Server also creates corresponding album and artist resources on the fly or updates 
+existing resources with new song. Server responds to client request with song representation which contains 
+links to all participating artists and all albums it is part of.
+
+Abstract: The server builds a relationship graph involving songs, artists and albums by intelligently creating 
+resources and inferring relationships. 
+
+
