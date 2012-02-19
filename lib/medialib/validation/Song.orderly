@@ -8,7 +8,7 @@ object {
    array { object {
       string rel;
       string url;
-   } } links;
+   } } links?;
    integer track;
    number length;
    integer size;

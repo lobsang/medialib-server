@@ -1,16 +1,21 @@
 {
   "songs": [
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/01-mastodon-oblivion.mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "Oblivion", "track": 1, "genre": "Progressive Rock", "length": 346.6187755102041, "size": 10424626, "date": "2009-03-24"},
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/02-mastodon-divinations.mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "Divinations", "track": 2, "genre": "Progressive Rock", "length": 218.93224489795918, "size": 6706519, "date": "2009-03-24"},
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/03-mastodon-quintessence.mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "Quintessence", "track": 3, "genre": "Progressive Rock", "length": 327.5232653061224, "size": 9874362, "date": "2009-03-24"},
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)", "track": 4, "genre": "Progressive Rock", "length": 654.3412244897959, "size": 17729550, "date": "2009-03-24"},
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/05-mastodon-ghost_of_karelia.mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "Ghost Of Karelia", "track": 5, "genre": "Progressive Rock", "length": 324.8326530612245, "size": 9030276, "date": "2009-03-24"},
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/06-mastodon-crack_the_skye.mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "Crack The Skye", "track": 6, "genre": "Progressive Rock", "length": 354.35102040816327, "size": 10977584, "date": "2009-03-24"},
-{"links": [{"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/07-mastodon-the_last_baron.mp3", "rel": "mp3"}], "album": "Crack The Skye", "artist": "Mastodon", "title": "The Last Baron", "track": 7, "genre": "Progressive Rock", "length": 780.6693877551021, "size": 22941943, "date": "2009-03-24"},
-{"links": [{"url": "file:///Volumes/data/music/Swallow_the_Sun--Plague_of_Butterflies-2008/01-swallow_the_sun_-_plague_of_butterflies.mp3", "rel": "mp3"}], "album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Plague Of Butterflies", "track": 1, "genre": "Death Metal", "length": 2082.56, "size": 53861660, "date": "2008"},
-{"links": [{"url": "file:///Volumes/data/music/Swallow_the_Sun--Plague_of_Butterflies-2008/02-swallow_the_sun_-_through_her_silvery_body.mp3", "rel": "mp3"}], "album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Through Her Silvery Body", "track": 2, "genre": "Death Metal", "length": 481.6718367346939, "size": 13467034, "date": "2008"},
-{"links": [{"url": "file:///Volumes/data/music/Swallow_the_Sun--Plague_of_Butterflies-2008/03-swallow_the_sun_-_out_of_this_gloomy_light.mp3", "rel": "mp3"}], "album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Out Of This Gloomy Light", "track": 3, "genre": "Death Metal", "length": 334.6808163265306, "size": 10076260, "date": "2008"},
-{"links": [{"url": "file:///Volumes/data/music/Swallow_the_Sun--Plague_of_Butterflies-2008/04-swallow_the_sun_-_swallow.mp3", "rel": "mp3"}], "album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Swallow", "track": 4, "genre": "Death Metal", "length": 327.57551020408164, "size": 9848558, "date": "2008"},
-{"links": [{"url": "file:///Volumes/data/music/Swallow_the_Sun--Plague_of_Butterflies-2008/05-swallow_the_sun_-_under_the_waves.mp3", "rel": "mp3"}], "album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Under The Waves", "track": 5, "genre": "Death Metal", "length": 396.69551020408164, "size": 11019764, "date": "2008"}
-   ]
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "Oblivion", "track": 1, "genre": "Progressive Rock", "length": 346.6187755102041, "size": 10424626, "date": "2009-03-24"},
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "Divinations", "track": 2, "genre": "Progressive Rock", "length": 218.93224489795918, "size": 6706519, "date": "2009-03-24"},
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "Quintessence", "track": 3, "genre": "Progressive Rock", "length": 327.5232653061224, "size": 9874362, "date": "2009-03-24"},
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)", "track": 4, "genre": "Progressive Rock", "length": 654.3412244897959, "size": 17729550, "date": "2009-03-24"},
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "Ghost Of Karelia", "track": 5, "genre": "Progressive Rock", "length": 324.8326530612245, "size": 9030276, "date": "2009-03-24"},
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "Crack The Skye", "track": 6, "genre": "Progressive Rock", "length": 354.35102040816327, "size": 10977584, "date": "2009-03-24"},
+{"album": "Crack The Skye", "artist": "Mastodon", "title": "The Last Baron", "track": 7, "genre": "Progressive Rock", "length": 780.6693877551021, "size": 22941943, "date": "2009-03-24"},
+{"album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Plague Of Butterflies", "track": 1, "genre": "Death Metal", "length": 2082.56, "size": 53861660, "date": "2008"},
+{"album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Through Her Silvery Body", "track": 2, "genre": "Death Metal", "length": 481.6718367346939, "size": 13467034, "date": "2008"},
+{"album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Out Of This Gloomy Light", "track": 3, "genre": "Death Metal", "length": 334.6808163265306, "size": 10076260, "date": "2008"},
+{"album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Swallow", "track": 4, "genre": "Death Metal", "length": 327.57551020408164, "size": 9848558, "date": "2008"},
+{"album": "Plague of Butterflies", "artist": "Swallow the Sun", "title": "Under The Waves", "track": 5, "genre": "Death Metal", "length": 396.69551020408164, "size": 11019764, "date": "2008"}
+   ],
+   
+   "mediaFiles": [ {
+   	"mediaType": "mp3",
+   	"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/01-mastodon-oblivion.mp3" 
+	} ]
 }

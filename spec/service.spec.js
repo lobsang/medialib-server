@@ -2,7 +2,7 @@ var medialib = require( '../lib/medialib' );
 var wwwdude = require( 'wwwdude' );
 var util = require( 'util' );
 var fs = require( 'fs' );
-var Enumerable = require( '../lib/vendor/linq.js/linq.js' ).Enumerable;
+var Enumerable  = require( '../lib/vendor/linq.js' ).Enumerable;
 
 var conf = {
    "mediaLibrary": {
@@ -48,6 +48,7 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+   var library = null;
    it( 'starts listening when started', function( done ) {
       service.start( function( err ) {
 
@@ -64,6 +65,8 @@ describe( 'medialib service', function() {
             }
 
             expect( response.statusCode ).toBe( 200 );
+            library = JSON.parse( data );
+            
             done();
          } );
          
@@ -184,6 +187,43 @@ describe( 'medialib service', function() {
          done();
       } );
 
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'returns a song representation, containing a meda files link', function() {
+
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'mediaFiles'" )
+         .Select( "$.url" )
+         .First();
+      
+      expect( url ).toBeTruthy();
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   it( 'responds when creating a new media file for a song', function() {
+      var url = Enumerable.From( song.links )
+         .Where( "$.rel == 'mediaFiles'" )
+         .Select( "$.url" )
+         .First();
+
+      var item = JSON.parse( JSON.stringify( fixture.mediaFiles[ 0 ] ) );
+      var request = {
+         payload: JSON.stringify( item ),
+         headers: { 'Content-Type': mediaLibrary.contentTypes.MediaFile }
+      };
+   
+      expect( url ).toBeTruthy();
+
+      httpClient.post( url, request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 201 );
+         song = JSON.parse( data );
+            
+         done();
+      } );
    } );
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
