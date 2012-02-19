@@ -23,9 +23,7 @@ var httpClient = wwwdude.createClient( {
    timeout: 500
 } );
 
-var fixture = {
-   songs: JSON.parse( fs.readFileSync( __filename.replace( /js$/, 'songs.json' ), 'utf8' ) ).songs
-};
+var fixture = JSON.parse( fs.readFileSync( __filename.replace( /js$/, 'songs.json' ), 'utf8' ) );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -203,7 +201,7 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   it( 'responds when creating a new media file for a song', function() {
+   it( 'responds when creating a new media file for a song', function( done ) {
       var url = Enumerable.From( song.links )
          .Where( "$.rel == 'mediaFiles'" )
          .Select( "$.url" )
@@ -220,7 +218,7 @@ describe( 'medialib service', function() {
       httpClient.post( url, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
-         song = JSON.parse( data );
+         // mediaFile = JSON.parse( data );
             
          done();
       } );
@@ -262,13 +260,13 @@ describe( 'medialib service', function() {
       var request = {
          headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
       };
-      
+      console.log( url );
       expect( url ).toBeTruthy();
 
       httpClient.get( url, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 200 );
-            
+
          done();
       } );
 
