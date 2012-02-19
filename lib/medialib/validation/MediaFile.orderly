@@ -5,5 +5,5 @@ object {
    array { object {
       string rel;
       string url;
-   } } links;
+   } } links?;
 };
