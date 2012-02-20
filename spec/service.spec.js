@@ -51,7 +51,7 @@ describe( 'medialib service', function() {
       service.start( function( err ) {
 
          var request = {
-            headers: { 'Content-Type': mediaLibrary.contentTypes.Library }
+            headers: { 'Content-Type': medialib.contentTypes.Library }
          };
          
          expect( err ).toBeFalsy();
@@ -138,7 +138,7 @@ describe( 'medialib service', function() {
 
       var request = {
          payload: JSON.stringify( fixture.songs[ 0 ] ),
-         headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
+         headers: { 'Content-Type': medialib.contentTypes.Song }
       };
       
       httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
@@ -210,7 +210,7 @@ describe( 'medialib service', function() {
       var item = JSON.parse( JSON.stringify( fixture.mediaFiles[ 0 ] ) );
       var request = {
          payload: JSON.stringify( item ),
-         headers: { 'Content-Type': mediaLibrary.contentTypes.MediaFile }
+         headers: { 'Content-Type': medialib.contentTypes.MediaFile }
       };
    
       expect( url ).toBeTruthy();
@@ -258,7 +258,7 @@ describe( 'medialib service', function() {
          .First();
       
       var request = {
-         headers: { 'Content-Type': mediaLibrary.contentTypes.Song }
+         headers: { 'Content-Type': medialib.contentTypes.Song }
       };
       console.log( url );
       expect( url ).toBeTruthy();
