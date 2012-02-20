@@ -27,6 +27,11 @@ var fixture = JSON.parse( fs.readFileSync( __filename.replace( /js$/, 'songs.jso
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// This tests have system test character. They exercise the whole system. Nothing is isolated, nothing is
+// mocked.
+//
+// Unfortunately the ordering of the tests also matters. Tests build upon one another.
+
 describe( 'medialib service', function() {
 
    var mediaLibrary = null;
@@ -80,7 +85,11 @@ describe( 'medialib service', function() {
          headers: {}
       };
       
-      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+      var url = Enumerable.From( library.links )
+         .Where( "$.rel == 'songs'" )
+         .Select( "$.url" )
+         .First();
+      httpClient.post( url, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 415 );
             
@@ -256,17 +265,41 @@ describe( 'medialib service', function() {
          .Where( "$.rel == 'self'" )
          .Select( "$.url" )
          .First();
-      
+      expect( url ).toBeTruthy();
+
       var request = {
          headers: { 'Content-Type': medialib.contentTypes.Song }
       };
-      console.log( url );
-      expect( url ).toBeTruthy();
 
       httpClient.get( url, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 200 );
 
+         done();
+      } );
+
+   } );
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   it( 'lists artists', function( done ) {
+
+      var url = Enumerable.From( library.links )
+         .Where( "$.rel == 'artists'" )
+         .Select( "$.url" )
+         .First();
+      expect( url ).toBeTruthy();
+      
+      var request = {
+         headers: { 'Content-Type': medialib.contentTypes.LibraryItems }
+      };
+
+      httpClient.get( url, request ).on( 'complete', function ( data, response ) {
+
+         expect( response.statusCode ).toBe( 200 );
+         var artists = JSON.parse( data );
+         expect( artists.items.length ).toBe( 1 );
+         
          done();
       } );
 
