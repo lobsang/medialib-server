@@ -52,6 +52,7 @@ describe( 'medialib service', function() {
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    var library = null;
+   var songsURL = null;
    it( 'starts listening when started', function( done ) {
       service.start( function( err ) {
 
@@ -70,6 +71,13 @@ describe( 'medialib service', function() {
             expect( response.statusCode ).toBe( 200 );
             library = JSON.parse( data );
             
+            songsURL = Enumerable.From( library.links )
+               .Where( "$.rel == 'songs'" )
+               .Select( "$.url" )
+               .First();
+            
+            expect( songsURL ).toBeTruthy();
+            
             done();
          } );
          
@@ -85,11 +93,7 @@ describe( 'medialib service', function() {
          headers: {}
       };
       
-      var url = Enumerable.From( library.links )
-         .Where( "$.rel == 'songs'" )
-         .Select( "$.url" )
-         .First();
-      httpClient.post( url, request ).on( 'complete', function ( data, response ) {
+      httpClient.post( songsURL, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 415 );
             
@@ -110,7 +114,7 @@ describe( 'medialib service', function() {
          headers: {}
       };
       
-      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+      httpClient.post( songsURL, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 415 );
             
@@ -131,7 +135,7 @@ describe( 'medialib service', function() {
          headers: {}
       };
       
-      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+      httpClient.post( songsURL, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 415 );
             
@@ -150,7 +154,7 @@ describe( 'medialib service', function() {
          headers: { 'Content-Type': medialib.contentTypes.Song }
       };
       
-      httpClient.post( baseURL + '/0/songs', request ).on( 'complete', function ( data, response ) {
+      httpClient.post( songsURL, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
          song = JSON.parse( data );
@@ -162,7 +166,7 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
-   it( 'returns a song representation, containing a self link', function() {
+   it( 'returned a song representation, containing a self link', function() {
 
       var url = Enumerable.From( song.links )
          .Where( "$.rel == 'self'" )
