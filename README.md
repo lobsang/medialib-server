@@ -8,14 +8,17 @@ The long term goal is to actually make this work for all kinds of media. My shor
 particular use case which is *listening to music stored in mp3 files on my nas at home from within the HTML5
 browser at work*.
 
-That short term goal also includes browsing and searching the library as well as server-side cover art 
-searching for media library contents.
+That short term goal also includes browsing and searching the library as well as using 3rd party web apis
+for server-side cover art searching for media library contents.
 
 It is my conviction, that there are lots of potential server-side services which add value to the media
 library concept and which are independent of the physical location of media. As such this project is 
 competition of sorts for the Amazon Cloud Player, or other open source projects like subsonic or Ampache.
 However, those all have in common that they offer one monolithic solution where the service api is basically
 coupled with the media location and where the clients are coupled to that service layer.
+
+The intended target audience for this project is mainly...myself.
+
 
 Status
 ------
@@ -34,7 +37,7 @@ The architecture is a result of the following requirements:
 * The player client must be agnostic of physical location of media. It does not matter if media is stored on
 my local hard drive or within the cloud.
 
-There are also the following personal objectives:
+My personal objectives also drive the design as well as implementation choices:
 
 * To gather some experience with RESTful API design.
 * To gather some experience with server side JavaScript, in particular with respect to writing asynchronous
@@ -57,7 +60,7 @@ media must be pluggable.
 ``Client (Player)``: The player uses the medialib service in order to browse/search media meta data as well
 as for streaming media.
 
-``Client (Cataloguer)``: The cataloguer uses the medialib service in order to add media meta data to the
+``Client (Cataloger)``: The cataloger uses the medialib service in order to add media meta data to the
 library and in order to register physical media data locations with the library.  
 
 
