@@ -8,6 +8,14 @@ The long term goal is to actually make this work for all kinds of media. My shor
 particular use case which is *listening to music stored in mp3 files on my nas at home from within the HTML5
 browser at work*.
 
+That short term goal also includes browsing and searching the library as well as server-side cover art 
+searching for media library contents.
+
+It is my conviction, that there are lots of potential server-side services which add value to the media
+library concept and which are independent of the physical location of media. As such this project is 
+competition of sorts for the Amazon Cloud Player, or other open source projects like subsonic or Ampache.
+However, those all have in common that they offer one monolithic solution where the service api is basically
+coupled with the media location and where the clients are coupled to that service layer.
 
 Status
 ------
@@ -25,20 +33,26 @@ The architecture is a result of the following requirements:
 * Clean separation between player clients and the library which stores all the media meta data.
 * The player client must be agnostic of physical location of media. It does not matter if media is stored on
 my local hard drive or within the cloud.
-* Gather some experience with RESTful API design.
-* Gather some experience with server side JavaScript, in particular with respect to writing asynchronous
+
+There are also the following personal objectives:
+
+* To gather some experience with RESTful API design.
+* To gather some experience with server side JavaScript, in particular with respect to writing asynchronous
 code following the node.js paradigm.
-* Gather some experience with developing a modern web application.
+* To gather some experience with developing a modern web application.
 
 ### Central Concepts ###
 
-``Library``: The library which is responsible for storing media meta data. Right now it is using couchdb for
-storage. The storage mechanism should also remain pluggable (unless that turns out to be too academic a
-premise).
+``Library``: The library encapsulates the whole domain of cataloging and storing media meta data. It is used 
+by the service on top (which in turn provides the REST interface). Where the service talks about resources the 
+library internally deals with entities. Right now it is using couchdb for storage of those entities. The 
+storage mechanism should also remain pluggable.
 
 ``Service``: The service on top of the library which exposes access to media meta data in a restful manner.
-The service also provides an API for streaming media. From the point of view of the client wanting to play
-media, the service is the facade in front of the physical media source (local hard disk, cloud, etc.).
+The client uses this service to browse and search the contents within the library. It can also chose to play
+media using this service. To that end this service provides an uniform interface for streaming media. It 
+abstracts from the physical media source (local hard disk, cloud, etc.). Handlers for server-side access to
+media must be pluggable.
 
 ``Client (Player)``: The player uses the medialib service in order to browse/search media meta data as well
 as for streaming media.
