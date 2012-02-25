@@ -1,7 +1,8 @@
 
 My latest insights are not reflected here. It has been brought to my attention that media types are the means 
 by which hypermediality is achieved. The intention of a media type is not to describe the structure of 
-representations but to let the client know how it can extract hypermedia from the body of a response.
+representations but to let the client know how it can extract hypermedia from the body of a response and which 
+operations apply.
 
 It follows from that insight, that the media types described below need overhauling. Contrary to the current 
 design I am going to opt for one domain media type only.
@@ -38,7 +39,7 @@ A _song_ represents a collection of meta data for one atomic item of music withi
 
 ```
 {
-   clientId: "/path/to/Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",
+   clientID: "/path/to/Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",
    title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
    album: "Crack The Skye",
    artist: "Mastodon",
@@ -48,49 +49,51 @@ A _song_ represents a collection of meta data for one atomic item of music withi
    size: 17729550,
    year: 2009,
    links: [
-      { rel: "self", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
-      { rel: "equal", url: "http://domain/songs/2e0c202270906df6d8dba1db8a11e3b34aea87d1" },
-      { rel: "stream", contentType: "audio/mpeg", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/0/stream" },
-      { rel: "stream", contentType: "application/ogg", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/1/stream" },
-      { rel: "album", url: "http://domain/albums/11528c41f7d5cd48aa9063e73bbdeee9530128ec" },
-      { rel: "artist", url: "http://domain/artists/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" }
-   ],
-   actions: [   
-       { effect: "createMediaResource", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources" },
-       { effect: "mergeEqualSongsIntoSelf", url: "http://domain/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/merge?source=2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
+      { url: "...", rel: "self", description: "this song's uri" },
+      { url: "...", rel: "library", description: "the library containing this song" },
+      { url: "...", rel: "mediaFiles", description: "media files associated with this song" },
+      { url: "...", rel: "equal", description: "a song which according to server algorithms may be equal to this song" },
+      { url: "...", rel: "album", description: "an album containing this song" },
+      { url: "...", rel: "artist", description: "an artist participating in this song" }
    ]
 }
 ```
 
-* `clientId`: An optional unique id (with respect to all other songs) supplied by the client. Uniqueness is
+* `clientID`: An optional unique id (with respect to all other songs) supplied by the client. Uniqueness is
 enforced by the server. Apart from that, its value is neither used nor interpreted by the server.
 
 _[V 1.1]: album, track -> appearsOn: [ {album, track } ]; genre -> genres; artist -> artists_
 
 
-application/medialib.MediaResource+json
+application/medialib.MediaFile+json
 --------------------------------------------
 
-A _media resource_ describes a physical, streamable media resource (doh!). The mp3 file on your local hard
-disk is the media resource from which the song meta data is derived. The same song may have additional
-physical reifications within a cloud or elsewhere (anywhere addressable).
+A _media file_ describes a physical, streamable media resource. The mp3 file on your local hard drive is the 
+media file from which the song meta data is derived. The same song may have additional physical reifications 
+within a cloud or elsewhere (anywhere addressable).
 
 ```
 {
-   mediaType: "mp3",
+   format: "mp3",
    url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",   
    links: [
-      { rel: "self", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/0" },
-      { rel: "stream", contentType: "audio/mpeg", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/0/stream" }
+      { url: "...", rel: "self", description: "this media file's uri" },
+      { url: "...", rel: "stream", meta: { transform: "identity", mediaType: "audio/mpeg" }, description: "a media stream" }
+      { url: "...", rel: "stream", meta: { transform: "transcode", quality: "high", mediaType: "application/ogg" }, description: "a media stream" }
    ],
 }
 ```
 
-Creating a media resources causes the following side effect to the representation of its owning song:
-
-* Streaming link will be added: `{rel: "stream", contentType: "...", url: "..."}`
-
-_[V 1.1]: Transcoding: { rel: "stream", contentType: "application/ogg", url: ".../stream?transcode=vorbis" }_
+```
+{
+   format: "vorbis",
+   url: "acd:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).ogg",   
+   links: [
+      { url: "...", rel: "self", description: "this media file's uri" },
+      { url: "...", rel: "stream", meta: { transform: "identity", mediaType: "application/ogg" }, description: "a media stream" }
+   ],
+}
+```
 
 ### Client creates Song ###
 
@@ -124,40 +127,38 @@ Response:
        size: 17729550,
        year: 2009,
        links: [
-          { rel: "self", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a" },
-          { rel: "equal", url: "http://domain/songs/2e0c202270906df6d8dba1db8a11e3b34aea87d1" },
-          { rel: "stream", contentType: "audio/mpeg", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/0/stream" }
-       ],
-       actions: [
-          { effect: "createMediaResource", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources" },
-          { effect: "mergeEqualSongsIntoSelf", url: "http://domain/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/merge?source=2e0c202270906df6d8dba1db8a11e3b34aea87d1" }
+     	    { url: "...", rel: "self", description: "this song's uri" },
+          { url: "...", rel: "library", description: "the library containing this song" },
+          { url: "...", rel: "mediaFiles", description: "media files associated with this song" },
+          { url: "...", rel: "album", description: "an album containing this song" },
+          { url: "...", rel: "artist", description: "an artist participating in this song" }       ],
        ]
     }
     
-### Client creates media source ###
+### Client creates media file ###
 
 Request:
 
-    POST /songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources
-    Accept: application/medialib.MediaResource+json
-    Content-Type: application/medialib.MediaResource+json
+    POST $( songRepr.links[ @rel = "mediaFiles" ] )
+    Accept: application/medialib.MediaFile+json
+    Content-Type: application/medialib.MediaFile+json
     {
-       contentType: "audio/mpeg",
+       format: "mp3",
        url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3"
     }
 
 Response:
 
     HTTP/1.1 201 Created
-    Content-Type: application/medialib.MediaResource+json
+    Content-Type: application/medialib.MediaFile+json
     {
-       contentType: "audio/mpeg",
+       format: "mp3",
        url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",
        
        links: [
-          { rel: "self", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/0" },
-          { rel: "stream", contentType: "audio/mpeg", url: "http://domain/songs/a0a5fc7e007e46f5227c41bc4447083ac3f5bf0a/mediaResources/0/stream" }
-       ],
+          { url: "...", rel: "self", description: "this media file's uri" },
+          { url: "...", rel: "stream", meta: { transform: "identity", mediaType: "audio/mpeg" }, description: "a media stream" }
+        ],
     }
 
 
