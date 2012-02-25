@@ -24,15 +24,15 @@ application/medialib.Library+json
 ```
 {
    links: [
-      { rel: "artists", url: "http://domain/artists" },
-      { rel: "songs", url: "http://domain/songs" },
-      { rel: "albums", url: "http://domain/albums" },
+      { url: "...", rel: "artists", description: "artists contained within this library" },
+      { url: "...", rel: "songs", description: "songs contained within this library" },
+      { url: "...", rel: "albums", description: "albums contained within this library" },
    ]
 }
 ```
 
 
-application/medialib.Song+json [Song.orderly](lib/medialib/service/validation/song.orderly)
+application/medialib.Song+json [Song.orderly](lib/medialib/service/validation/Song.orderly)
 --------------------------------------------
 
 A _song_ represents a collection of meta data for one atomic item of music within the media library.
@@ -128,10 +128,10 @@ Response:
        year: 2009,
        links: [
      	    { url: "...", rel: "self", description: "this song's uri" },
-          { url: "...", rel: "library", description: "the library containing this song" },
-          { url: "...", rel: "mediaFiles", description: "media files associated with this song" },
-          { url: "...", rel: "album", description: "an album containing this song" },
-          { url: "...", rel: "artist", description: "an artist participating in this song" }       ],
+     	    { url: "...", rel: "library", description: "the library containing this song" },
+     	    { url: "...", rel: "mediaFiles", description: "media files associated with this song" },
+     	    { url: "...", rel: "album", description: "an album containing this song" },
+     	    { url: "...", rel: "artist", description: "an artist participating in this song" },
        ]
     }
     
