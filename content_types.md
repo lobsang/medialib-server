@@ -1,3 +1,13 @@
+
+My latest insights are not reflected here. It has been brought to my attention that media types are the means 
+by which hypermediality is achieved. The intention of a media type is not to describe the structure of 
+representations but to let the client know how it can extract hypermedia from the body of a response.
+
+It follows from that insight, that the media types described below need overhauling. Contrary to the current 
+design I am going to opt for one domain media type only.
+
+
+
 In all examples, headers which are not pertinent to the example are omitted (mostly Content-Length).
 
 In order to improve readability I also did not enclose keys in json representations in quotation marks (which
@@ -21,7 +31,7 @@ application/medialib.Library+json
 ```
 
 
-application/medialib.Song+json [Song.orderly](lib/medialib/validation/song.orderly)
+application/medialib.Song+json [Song.orderly](lib/medialib/service/validation/song.orderly)
 --------------------------------------------
 
 A _song_ represents a collection of meta data for one atomic item of music within the media library.

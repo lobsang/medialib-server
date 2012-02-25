@@ -2,16 +2,14 @@ Architecture & Design
 ======================
 
 The idea is to have a programmatic media library interface independent of the web service sitting on top.
-This can understood in two ways:
+This can be understood in two ways:
 
-* First to decouple the media library from HTTP specific concepts, which 
-would only lead to an indirection between HTTP specific concepts (like HTTP headers) and media library
-concepts. To my mind there is really not much value to that objective, which is why I am not going to go out
-my way to avoid using HTTP specific concepts in my media library.
+* First to decouple the RESTful service from HTTP specific concepts, which to my mind would only lead to
+unnecessary indirections between abstract REST concepts and their specific HTTP realizations.
 
 * Second to decouple the media library implementation from the particular web server implementation chosen
-in my node.js stack (currently express.js). This to my mind, is still a worthwhile objective and as such a
-factor to consider. 
+in my node.js stack (currently express.js). As far as I am concerned, this is still a worthwhile objective 
+and as such a factor to consider. 
 
 However, with that being said, the design of the media library api is driven by the RESTful service on top 
 of it anyways (what with the REST verbs translating into create/show/index/etc. actions within
