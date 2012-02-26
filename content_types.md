@@ -39,7 +39,6 @@ A _song_ represents a collection of meta data for one atomic item of music withi
 
 ```
 {
-   clientID: "/path/to/Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",
    title: "The Czar (I. Usurper, II. Escape. III. Martyr, IV. Spiral)",
    album: "Crack The Skye",
    artist: "Mastodon",
@@ -52,15 +51,11 @@ A _song_ represents a collection of meta data for one atomic item of music withi
       { url: "...", rel: "self", description: "this song's uri" },
       { url: "...", rel: "library", description: "the library containing this song" },
       { url: "...", rel: "mediaFiles", description: "media files associated with this song" },
-      { url: "...", rel: "equal", description: "a song which according to server algorithms may be equal to this song" },
-      { url: "...", rel: "album", description: "an album containing this song" },
-      { url: "...", rel: "artist", description: "an artist participating in this song" }
+      { url: "...", rel: "albums", description: "the albums containing this song" },
+      { url: "...", rel: "artists", description: "the artists participating in this song" }
    ]
 }
 ```
-
-* `clientID`: An optional unique id (with respect to all other songs) supplied by the client. Uniqueness is
-enforced by the server. Apart from that, its value is neither used nor interpreted by the server.
 
 _[V 1.1]: album, track -> appearsOn: [ {album, track } ]; genre -> genres; artist -> artists_
 
@@ -78,7 +73,8 @@ within a cloud or elsewhere (anywhere addressable).
    url: "file:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).mp3",   
    links: [
       { url: "...", rel: "self", description: "this media file's uri" },
-      { url: "...", rel: "stream", meta: { transform: "identity", mediaType: "audio/mpeg" }, description: "a media stream" }
+      { url: "...", rel: "songs", description: "the songs mapping to this media file" },
+      { url: "...", rel: "stream", meta: { transform: "identity", mediaType: "audio/mpeg" }, description: "a media stream" },
       { url: "...", rel: "stream", meta: { transform: "transcode", quality: "high", mediaType: "application/ogg" }, description: "a media stream" }
    ],
 }
@@ -90,6 +86,7 @@ within a cloud or elsewhere (anywhere addressable).
    url: "acd:///Mastodon-Crack_The_Skye-2009/04-mastodon-the_czar_(i_usurper_ii_escape_iii_martyr_iv_spiral).ogg",   
    links: [
       { url: "...", rel: "self", description: "this media file's uri" },
+      { url: "...", rel: "songs", description: "the songs mapping to this media file" },
       { url: "...", rel: "stream", meta: { transform: "identity", mediaType: "application/ogg" }, description: "a media stream" }
    ],
 }

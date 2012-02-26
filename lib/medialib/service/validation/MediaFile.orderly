@@ -1,7 +1,6 @@
 object {
    string mediaType;
    string url;
-   any clientId?;
    array { object {
       string rel;
       string url;
