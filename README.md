@@ -44,7 +44,7 @@ My personal objectives also drive the design as well as implementation choices:
 code following the node.js paradigm.
 * To gather some experience with developing a modern web application.
 
-I will also try to document decisions and noteworthy insights within my [musings](medialib-server/blob/master/dev/musings.md).
+I will also try to document decisions and noteworthy insights within my [musings](dev/musings.md).
 
 ### Central Concepts ###
 
