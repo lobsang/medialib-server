@@ -44,7 +44,7 @@ My personal objectives also drive the design as well as implementation choices:
 code following the node.js paradigm.
 * To gather some experience with developing a modern web application.
 
-I will also try to document decisions and noteworthy insights within my [musings](dev/musings.md).
+I will also try to document decisions and noteworthy insights within my [musings][mu].
 
 ### Central Concepts ###
 
@@ -66,7 +66,7 @@ as for streaming media.
 library and in order to register physical media data locations with the library.  
 
 
-Refer to the [content types description](medialib-server/blob/master/content_types.md) for details on how I
+Refer to the [content types description][ct] for details on how I
 envision the service REST API. 
 
 ### Future ###
@@ -99,3 +99,6 @@ Utilities
 Also contains the following helpers, which may or may not be pulled out into separate modules in the future:
 
 * ``assert``: assertions for basic coding by contract
+
+[mu]: https://github.com/lobsang/medialib-server/tree/master/dev/musings.md
+[ct]: https://github.com/lobsang/medialib-server/tree/master/dev/content_types.md
