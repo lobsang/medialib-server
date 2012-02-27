@@ -101,4 +101,4 @@ Also contains the following helpers, which may or may not be pulled out into sep
 * ``assert``: assertions for basic coding by contract
 
 [mu]: https://github.com/lobsang/medialib-server/tree/master/dev/musings.md
-[ct]: https://github.com/lobsang/medialib-server/tree/master/dev/content_types.md
+[ct]: https://github.com/lobsang/medialib-server/tree/master/content_types.md
