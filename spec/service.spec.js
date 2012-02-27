@@ -70,7 +70,7 @@ describe( 'medialib service', function() {
 
             expect( response.statusCode ).toBe( 200 );
             library = JSON.parse( data );
-            
+            console.log( data );
             songsURL = Enumerable.From( library.links )
                .Where( "$.rel == 'songs'" )
                .Select( "$.url" )
