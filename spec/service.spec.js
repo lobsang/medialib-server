@@ -36,7 +36,7 @@ describe( 'medialib service', function() {
 
    var mediaLibrary = null;
    var service = null;
-   var baseURL = null;
+   var entryURL = null;
    
    beforeEach( function () {
       if( !service ) {
@@ -44,7 +44,7 @@ describe( 'medialib service', function() {
          mediaLibrary = new medialib.MediaLibrary( conf.mediaLibrary );
          service = new medialib.MediaLibraryService( conf.webService, mediaLibrary );
                   
-         baseURL = util.format( "http://localhost:%d%s", conf.webService.listenPort, conf.webService.contextRoot );
+         entryURL = util.format( "http://localhost:%d%s", conf.webService.listenPort, conf.webService.contextRoot );
 
       }
    } );
@@ -53,25 +53,23 @@ describe( 'medialib service', function() {
 
    var library = null;
    var songsURL = null;
-   it( 'starts listening when started', function( done ) {
+   it( 'lists libraries at entry url', function( done ) {
       service.start( function( err ) {
 
          var request = {
-            headers: { 'Content-Type': medialib.contentTypes.Library }
+            headers: { 'Content-Type': medialib.contentTypes.MediaLibrary }
          };
          
          expect( err ).toBeFalsy();
          
-         httpClient.get( baseURL, request ).on( 'complete', function ( data, response ) {
-            
-            if( response.statusCode === 302 ) {
-               return;
-            }
+         httpClient.get( entryURL, request ).on( 'complete', function ( data, response ) {
 
             expect( response.statusCode ).toBe( 200 );
-            library = JSON.parse( data );
-            console.log( data );
-            songsURL = Enumerable.From( library.links )
+            body = JSON.parse( data );
+            
+            expect( body.libraries ).toBeTruthy();
+            expect( body.libraries.length ).toBe( 1 );
+            songsURL = Enumerable.From( body.libraries[ 0 ].links )
                .Where( "$.rel == 'songs'" )
                .Select( "$.url" )
                .First();
@@ -145,73 +143,92 @@ describe( 'medialib service', function() {
    } );
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   var song = null;
-   it( 'creates a song', function( done ) {
 
-      var request = {
-         payload: JSON.stringify( fixture.songs[ 0 ] ),
-         headers: { 'Content-Type': medialib.contentTypes.Song }
-      };
+   describe( 'song response from create', function() {
       
-      httpClient.post( songsURL, request ).on( 'complete', function ( data, response ) {
+      var song = null;
+      it( 'creates a song', function( done ) {
 
-         expect( response.statusCode ).toBe( 201 );
-         song = JSON.parse( data );
-            
-         done();
+         var request = {
+            payload: JSON.stringify( fixture.songs[ 0 ] ),
+            headers: { 'Content-Type': medialib.contentTypes.Song }
+         };
+         
+         httpClient.post( songsURL, request ).on( 'complete', function ( data, response ) {
+
+            expect( response.statusCode ).toBe( 201 );
+            song = JSON.parse( data );
+               
+            done();
+         } );
+
+      } );
+      
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+      it( 'representation contains self link', function() {
+         var links = Enumerable.From( song.links )
+            .Where( "$.rel == 'self'" )
+            .ToArray();
+         expect( links.length ).toBe( 1 );
       } );
 
-   } );
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   it( 'returned a song representation, containing a self link', function() {
-
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'self'" )
-         .Select( "$.url" )
-         .First();
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////
       
-      expect( url ).toBeTruthy();
-   } );
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   it( 'responds with media data when querying a media link', function( done ) {
+      it( 'representation contains media files link', function() {
 
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'media'" )
-         .Select( "$.url" )
-         .First();
+         var links = Enumerable.From( song.links )
+            .Where( "$.rel == 'mediaFiles'" )
+            .ToArray();
       
-      expect( url ).toBeTruthy();
-
-      var request = {
-      };
-      
-      httpClient.get( url, request ).on( 'complete', function ( data, response ) {
-
-         // TODO: Make file to be delivered part of fixture (somehow) and test for 200
-         expect( response.statusCode ).toBe( 404 );
-            
-         done();
+         expect( links.length ).toBe( 1 );
       } );
-
-   } );
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   it( 'returns a song representation, containing a meda files link', function() {
-
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'mediaFiles'" )
-         .Select( "$.url" )
-         .First();
       
-      expect( url ).toBeTruthy();
-   } );
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+      it( 'representation contains artists link', function() {
+
+         var links = Enumerable.From( song.links )
+            .Where( "$.rel == 'artists'" )
+            .ToArray();
    
+         expect( links.length ).toBe( 1 );
+      } );
+      
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+      it( 'representation contains albums link', function() {
+
+         var links = Enumerable.From( song.links )
+            .Where( "$.rel == 'albums'" )
+            .ToArray();
+   
+         expect( links.length ).toBe( 1 );
+      } );
+      
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+      it( 'responds with song representation at song self url', function( done ) {
+
+         var url = Enumerable.From( song.links )
+            .Where( "$.rel == 'self'" )
+            .Select( "$.url" )
+            .First();
+         expect( url ).toBeTruthy();
+
+         var request = {
+            headers: { 'Content-Type': medialib.contentTypes.Song }
+         };
+
+         httpClient.get( url, request ).on( 'complete', function ( data, response ) {
+            expect( response.statusCode ).toBe( 200 );
+            done();
+         } );
+
+      } );
+      
+   } );
+
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
    it( 'responds when creating a new media file for a song', function( done ) {
@@ -236,53 +253,7 @@ describe( 'medialib service', function() {
          done();
       } );
    } );
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   it( 'returns a song representation, containing a media playback link', function() {
-
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'media'" )
-         .Select( "$.url" )
-         .First();
-      
-      expect( url ).toBeTruthy();
-   } );
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   it( 'returns a song representation, containing an artist link', function() {
-
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'artist'" )
-         .Select( "$.url" )
-         .First();
-      
-      expect( url ).toBeTruthy();
-   } );
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-   it( 'responds with song representation when querying song self link', function( done ) {
-
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'self'" )
-         .Select( "$.url" )
-         .First();
-      expect( url ).toBeTruthy();
-
-      var request = {
-         headers: { 'Content-Type': medialib.contentTypes.Song }
-      };
-
-      httpClient.get( url, request ).on( 'complete', function ( data, response ) {
-
-         expect( response.statusCode ).toBe( 200 );
-
-         done();
-      } );
-
-   } );
+ 
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -318,7 +289,7 @@ describe( 'medialib service', function() {
          
          expect( err ).toBeFalsy();
          
-         httpClient.get( baseURL ).
+         httpClient.get( entryURL ).
             on( 'error', function( err ) {
                expect( err.errno ).toEqual( 'ECONNREFUSED' );
                
