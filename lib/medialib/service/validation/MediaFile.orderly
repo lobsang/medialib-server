@@ -1,8 +1,13 @@
 object {
-   string mediaType;
+   string format;
    string url;
    array { object {
       string rel;
       string url;
+      object {
+         string transform;
+         string quality?;
+         string mediaType;
+      } meta?;      
    } } links?;
 };

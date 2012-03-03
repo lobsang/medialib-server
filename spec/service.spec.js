@@ -233,25 +233,47 @@ describe( 'medialib service', function() {
    } );
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   describe( 'media file representation', function() {
    
-   it( 'responds when creating a new media file for a song', function( done ) {
-
-      var item = JSON.parse( JSON.stringify( fixture.mediaFiles[ 0 ] ) );
-      var request = {
-         payload: JSON.stringify( item ),
-         headers: { 'Content-Type': medialib.contentTypes.MediaFile }
-      };
+      var mediaFile = null;
+      
+      it( 'is returned on creation', function( done ) {
    
-      expect( songMediaFilesURL ).toBeTruthy();
-
-      httpClient.post( songMediaFilesURL, request ).on( 'complete', function ( data, response ) {
-
-         expect( response.statusCode ).toBe( 201 );
-         // mediaFile = JSON.parse( data );
+         var item = JSON.parse( JSON.stringify( fixture.mediaFiles[ 0 ] ) );
+         var request = {
+            payload: JSON.stringify( item ),
+            headers: { 'Content-Type': medialib.contentTypes.MediaFile }
+         };
+      
+         expect( songMediaFilesURL ).toBeTruthy();
+   
+         httpClient.post( songMediaFilesURL, request ).on( 'complete', function ( data, response ) {
+   
+            expect( response.statusCode ).toBe( 201 );
+            mediaFile = JSON.parse( data );
             
-         done();
+            var keys = Object.keys( mediaFile );
+            expect( keys ).toContain( 'format' );
+            expect( keys ).toContain( 'url' );
+            expect( keys ).toContain( 'links' );
+            
+            done();
+         } );
       } );
-   } );
+      
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+      it( 'contains stream link', function() {
+
+         var links = Enumerable.From( mediaFile.links )
+            .Where( "$.rel == 'stream'" )
+            .ToArray();
+   
+         expect( links.length ).toBe( 1 );
+      } );
+      
+   });
  
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    

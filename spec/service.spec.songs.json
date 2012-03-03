@@ -15,7 +15,7 @@
    ],
    
    "mediaFiles": [ {
-   	"mediaType": "mp3",
+   	"format": "mp3",
    	"url": "file:///Users/marklehmacher/Desktop/Mastodon-Crack_The_Skye-2009/01-mastodon-oblivion.mp3" 
 	} ]
 }
