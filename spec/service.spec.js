@@ -144,6 +144,7 @@ describe( 'medialib service', function() {
    
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+   var songMediaFilesURL = null;
    describe( 'song response from create', function() {
       
       var song = null;
@@ -182,6 +183,8 @@ describe( 'medialib service', function() {
             .ToArray();
       
          expect( links.length ).toBe( 1 );
+         
+         songMediaFilesURL = links[ 0 ].url;
       } );
       
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -232,10 +235,6 @@ describe( 'medialib service', function() {
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
    it( 'responds when creating a new media file for a song', function( done ) {
-      var url = Enumerable.From( song.links )
-         .Where( "$.rel == 'mediaFiles'" )
-         .Select( "$.url" )
-         .First();
 
       var item = JSON.parse( JSON.stringify( fixture.mediaFiles[ 0 ] ) );
       var request = {
@@ -243,9 +242,9 @@ describe( 'medialib service', function() {
          headers: { 'Content-Type': medialib.contentTypes.MediaFile }
       };
    
-      expect( url ).toBeTruthy();
+      expect( songMediaFilesURL ).toBeTruthy();
 
-      httpClient.post( url, request ).on( 'complete', function ( data, response ) {
+      httpClient.post( songMediaFilesURL, request ).on( 'complete', function ( data, response ) {
 
          expect( response.statusCode ).toBe( 201 );
          // mediaFile = JSON.parse( data );
@@ -254,32 +253,6 @@ describe( 'medialib service', function() {
       } );
    } );
  
-   
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-   it( 'lists artists', function( done ) {
-
-      var url = Enumerable.From( library.links )
-         .Where( "$.rel == 'artists'" )
-         .Select( "$.url" )
-         .First();
-      expect( url ).toBeTruthy();
-      
-      var request = {
-         headers: { 'Content-Type': medialib.contentTypes.LibraryItems }
-      };
-
-      httpClient.get( url, request ).on( 'complete', function ( data, response ) {
-
-         expect( response.statusCode ).toBe( 200 );
-         var artists = JSON.parse( data );
-         expect( artists.items.length ).toBe( 1 );
-         
-         done();
-      } );
-
-   } );
-   
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
    
    it( 'stops listening when stopped', function( done ) {
