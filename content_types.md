@@ -7,6 +7,8 @@ operations apply.
 It follows from that insight, that the media types described below need overhauling. Contrary to the current 
 design I am going to opt for one domain media type only.
 
+Right now I am leaning towards using [application/hal+json](http://stateless.co/hal_specification.html).
+
 
 
 In all examples, headers which are not pertinent to the example are omitted (mostly Content-Length).

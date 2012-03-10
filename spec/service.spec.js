@@ -159,7 +159,6 @@ describe( 'medialib service', function() {
 
             expect( response.statusCode ).toBe( 201 );
             song = JSON.parse( data );
-               
             done();
          } );
 
@@ -252,6 +251,7 @@ describe( 'medialib service', function() {
    
             expect( response.statusCode ).toBe( 201 );
             mediaFile = JSON.parse( data );
+            console.log( data );
             
             var keys = Object.keys( mediaFile );
             expect( keys ).toContain( 'format' );

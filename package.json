@@ -7,9 +7,9 @@
       "addressable": "0.3.3",
       "async": "0.1.15",
       "aws-lib": "0.0.5",
+      "cradle": "0.5.8",
       "express": "2.5.6",
       "express-resource": "0.2.4",
-      "cradle": "0.5.8",
       "jsinc": "0.1.4",
       "json-schema": "0.2.0",
       "orderly": "1.0.1"
@@ -18,9 +18,10 @@
       "jasmine-node": "1.0.20",
       "wwwdude": "0.1.0"
    },
-   "keywords": ["media", "library", "web", "service", "music", "rest", "restful"],
+   "keywords": ["media", "library", "web", "service", "music", "restful"],
    "repository": "git://github.com/lobsang/medialib-server.git",
    "main": "index",
    "bin": { "medialib": "./bin/medialib" },
+   "license" : "MIT",
    "engines": { "node": ">= 0.6.1 < 0.7.0" }
 }
